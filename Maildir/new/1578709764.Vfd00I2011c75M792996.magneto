@@ -1,0 +1,77 @@
+Return-Path: <amir.hashmani@gmail.com>
+X-Original-To: usc-magneto@magneto.isi.edu
+Delivered-To: usc-magneto@magneto.isi.edu
+Received: from mail-c.ads.isi.edu (unknown [192.168.110.198])
+	by magneto.isi.edu (Postfix) with ESMTP id C077C185A53
+	for <usc-magneto@magneto.isi.edu>; Fri, 10 Jan 2020 18:29:24 -0800 (PST)
+IronPort-PHdr: =?us-ascii?q?9a23=3A2wTOUxTKRJXp+RxSjc6wyzVzBtpsv+yvbD5Q0YIu?=
+ =?us-ascii?q?jvd0So/mwa69ZxGN2/xhgRfzUJnB7Loc0qyK6vumAzJcqsrb+Fk5M7V0Hycfjs?=
+ =?us-ascii?q?sXmwFySOWkMmbcaMDQUiohAc5ZX0Vk9XzoeWJcGcL5ekGA6ibqtW1aFRrwLxd6?=
+ =?us-ascii?q?KfroEYDOkcu3y/qy+5rOaAlUmTaxe7x/IAi4oAnLqMUbgIRvJqk+xxfXv3BFZ/?=
+ =?us-ascii?q?lYyWR0KFyJgh3y/N2w/Jlt8yRRv/Iu6ctNWrjkcqo7ULJVEi0oP3g668P3uxbD?=
+ =?us-ascii?q?SxCP5mYHXWUNjhVIGQnF4wrkUZr3ryD3q/By2CiePc3xULA0RTGv5LplRRP0lC?=
+ =?us-ascii?q?sKMSMy/WfKgcJyka1bugqsqBN/zYDaY4+bKeRwcb/GcNMGWWZMRNpdWzBdDo6+?=
+ =?us-ascii?q?aYYEEuoPPfxfr4n4v1YDsR6+BQi2BOjyyDFHnGT23a0/0+s7FwHG3RErEtUUv3?=
+ =?us-ascii?q?TRrdX1Lr0eUeCvw6nTzTXDaulZ2TH86IXTfRAhpOuDXbN0ccbL1UYvEAbFg0yW?=
+ =?us-ascii?q?pIf4PD2VzvwAv3aH4+dkT+6iiG4qpxtvrjSx2MsgkJTFi4AVx13C6C532pw6Jc?=
+ =?us-ascii?q?eiR05+edOkEIVftyWdN4ZuR8MtWWBouCIjxr0fup63YTEGyJo6yxPda/GLaYeI?=
+ =?us-ascii?q?4hXkVOaeJTd3mmhpd664hxa36USgy+v8Wdeo0FtSsCZJjt3BumoO2hHT8MSLVO?=
+ =?us-ascii?q?Vx8lm71TqS1Q3e6vlIIUUumqraL54hzKQwlp0WsUnbBCD2nUT2jLWMekUk4Oeo?=
+ =?us-ascii?q?8OTnYrD8qZ+aNo95kQ7+MqE0lcy+BeQ0KBQBX2+e+eikzr3s4VX5QKlWjv0xiq?=
+ =?us-ascii?q?TZrYvaKtgCqq68GQBV3YAj5AijDzehy9kYmGMILF1DeB2Zk4jpPEvCIPHjDfe+?=
+ =?us-ascii?q?mVijjipkx+2VdoHmV4jWJT3GmbjncKp6w09HyUw+wc0MyYhTD+QoJfPpEm/4r9?=
+ =?us-ascii?q?zdBxk4e1i9xuf9TtV0zYMbUGSOKqCcOaLW91SP47R8cKG3eIYJtWOleLAe7Pn0?=
+ =?us-ascii?q?gCphlA=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A0F/BADKLhlehq/eVdFkDoYcMyqEDIN6i?=
+ =?us-ascii?q?yCCW4kndIUBBos4EgkBAQEBAQEBAQEIBSoBAQKEOwGBdyRLAhABAQQBAQECAQU?=
+ =?us-ascii?q?EAQECEAEBAQgLCwgphT4MgjsicXEBAQEBAQEBAQEBAQEBAQEBAQEBARUCgQEpO?=
+ =?us-ascii?q?AcKHQEbHgMSEA8CJgIkAREBBQEWQYMEgkoBAy6cWIIcgQM9iyaBFQUBF4J/BYR?=
+ =?us-ascii?q?ZChknDWMDgTECBxJ8h2iEWQ+BTD+BR4QphAiCQ4JeBJdpl04Hgjp2BJUzG4I3A?=
+ =?us-ascii?q?ZgyqWcPI4NBTSOBAYI7UBgNkmmDWYoYXCMwkSMBAQ?=
+X-IPAS-Result: =?us-ascii?q?A0F/BADKLhlehq/eVdFkDoYcMyqEDIN6iyCCW4kndIUBBos?=
+ =?us-ascii?q?4EgkBAQEBAQEBAQEIBSoBAQKEOwGBdyRLAhABAQQBAQECAQUEAQECEAEBAQgLC?=
+ =?us-ascii?q?wgphT4MgjsicXEBAQEBAQEBAQEBAQEBAQEBAQEBARUCgQEpOAcKHQEbHgMSEA8?=
+ =?us-ascii?q?CJgIkAREBBQEWQYMEgkoBAy6cWIIcgQM9iyaBFQUBF4J/BYRZChknDWMDgTECB?=
+ =?us-ascii?q?xJ8h2iEWQ+BTD+BR4QphAiCQ4JeBJdpl04Hgjp2BJUzG4I3AZgyqWcPI4NBTSO?=
+ =?us-ascii?q?BAYI7UBgNkmmDWYoYXCMwkSMBAQ?=
+X-IronPort-AV: E=Sophos;i="5.69,419,1571727600"; 
+   d="scan'208";a="22195192"
+Received: from mail-qk1-f175.google.com ([209.85.222.175])
+  by mail-c.ads.isi.edu with ESMTP/TLS/AES128-GCM-SHA256; 10 Jan 2020 18:15:43 -0800
+Received: by mail-qk1-f175.google.com with SMTP id z76so3855784qka.2
+        for <usc-magneto@isi.edu>; Fri, 10 Jan 2020 18:15:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=83ujgTLoctpDMoo+FO8n11tGrA8k4M97r7G6lYpjehw=;
+        b=Vj3nixfh7hrCwpYqdd4z0xKRN/FGqx3KXCYGGnqwcmF9MO5XR/GImKL3KYCv3P8Cl6
+         IOGqm+ltzMNVsUFtmQRAyX/9UKjSalFD0kEh+4wX2h54Q3UnNPRR6SgiKzfeqkceqkTp
+         5Y8pLDW6MF9/5gK/gK3GDCbwK8Pkza+zl/Vm6MlwTRz1sMOCtX6fyvUUvsBAAJREnz+V
+         dYQTQzMKkLWQtDqObkzdNggotDZyNcb3kOBfZuulkcZpy3y9l5cN7boan78eQOwrfSz9
+         z8RY8NolEVN0SzMWihekHuTLxfDhch7AohSLTYGju6AuRJeJbqCL1i/+ct1ptMr4PDsu
+         FiLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=83ujgTLoctpDMoo+FO8n11tGrA8k4M97r7G6lYpjehw=;
+        b=d/DiHzcGjCUEccF34A9VkLDl2q7WrSx13w1lJ1ZFzdE5lLhvhNhCbfQ7WRJERrYINw
+         5Dbfcogx4ACELnIcpHIrQDDKicFNQhZEIZ7GuDlbS5kw8QXCxJliOsNyshZw5QEFPYgp
+         qfLHDao8MoYHRNpTOStdpa5myithpfebX14WyXiHC0xO8XKLVmXgiDXqZI0SiJCwZW72
+         tIAu334ktAW0/FZTBmIzuOmSDwmsF2npDnLDy2qwhxpP1i1kuqTYh0Ok8g8gwNmaWwGH
+         jGO5hPMT8oaGDq5yhM7Cyt4cX4ryOc1DBOfsj5wJXYKcolpbNu+VuG0dsOUau4jHGi+m
+         h56w==
+X-Gm-Message-State: APjAAAXaUr0tGEt+KXmLlBsbKIXOlo+UKnZMY7G4sErssTEn4Mr6Et4T
+	Pxq5EYNYCPnqCQnwUHo4EbBnsGrBU9T/+ejGuWC4o5Sz
+X-Google-Smtp-Source: APXvYqyLYhV9rHw7PLrTXJJRkNcMSjTCGwcgXf+9GMutDYC2epMSBbL1M+dGqxCEW43lDrY3+sKskNkcJwKL0YLQFJ8=
+X-Received: by 2002:ae9:e30b:: with SMTP id v11mr6312502qkf.434.1578708942142;
+ Fri, 10 Jan 2020 18:15:42 -0800 (PST)
+MIME-Version: 1.0
+From: Amir Hashmani <amir.hashmani@gmail.com>
+Date: Fri, 10 Jan 2020 18:15:31 -0800
+Message-ID: <CAJ1YPTg6xZ_OhF5LE_y4xTqsiqNd8vNv5cZb9OQUn9nhcciS-g@mail.gmail.com>
+Subject: test from gmail
+To: usc-magneto@isi.edu
+Content-Type: text/plain; charset="UTF-8"
+
+gmail.
