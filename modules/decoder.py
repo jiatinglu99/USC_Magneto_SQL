@@ -235,162 +235,165 @@ decodeLengths = {
 'Ti':7,
 'No':2,
 }
+class Decoder:
+    def __init__(self):
+        pass
 
-def getDecodeLength(elementType):
-    try:
-        decodeLength = decodeLengths[elementType]
-    except:
-        decodeLength = int(elementType)
-    return decodeLength
-
-
-def decodeElement(element, elementType):
-    switcher = {
-        'ch': decodeChar,
-        'f': decodeNum,
-        'H': decodeNum,
-        'B': decodeNum,
-        'r': decodeReboot,
-        't': decodeTime,
-        '0': decodeNone,
-        'z': decodeNone,
-        'Ti': decodeChar,
-        'L': decodeNum,
-        'No': decodeNone,
-        'Conv1': decodeConvert1,
-        'Conv2': decodeConvert2,
-    }
-    decoder = switcher.get(elementType, decodeNone)
-    return decoder(element, elementType)
-
-def decodeChar(element, elementType):
-    return element.decode("hex")
-
-def decodeNum(element, elementType):
-    ident = '<' + elementType  # changed to little endian '<' from big endian '>' (RR, 04/03/2019)
-    return struct.unpack(ident, element.decode('hex'))[0]
+    def getDecodeLength(self, elementType):
+        try:
+            decodeLength = decodeLengths[elementType]
+        except:
+            decodeLength = int(elementType)
+        return decodeLength
 
 
-def decodeNumBig(element, elementType):
-    ident = '>' + elementType  # allows decoding of big endian data
-    return struct.unpack(ident, element.decode('hex'))[0]
+    def decodeElement(self, element, elementType):
+        switcher = {
+            'ch': self.decodeChar,
+            'f': self.decodeNum,
+            'H': self.decodeNum,
+            'B': self.decodeNum,
+            'r': self.decodeReboot,
+            't': self.decodeTime,
+            '0': self.decodeNone,
+            'z': self.decodeNone,
+            'Ti': self.decodeChar,
+            'L': self.decodeNum,
+            'No': self.decodeNone,
+            'Conv1': self.decodeConvert1,
+            'Conv2': self.decodeConvert2,
+        }
+        decoder = switcher.get(elementType, self.decodeNone)
+        return decoder(element, elementType)
 
-def decodeReboot(rebootReason_num, elementType):
-    switcher = {
-        0: "RESTART_POWER_UP",
-        1: "RESTART_BROWNOUT",
-        4: "RESTART_WATCHDOG",
-        6: "RESTART_SOFTWARE",
-        7: "RESTART_MCLR",
-        14: "RESTART_ILLEGAL_OP",
-        15: "RESTART_TRAP_CONFLICT",
-    }
-    return switcher.get(rebootReason_num)
+    def decodeChar(self, element, elementType):
+        return element.decode("hex")
 
-def getReebootReason(reebootReason_num):
-    switcher = {
-        0: "RESTART_POWER_UP",
-        1: "RESTART_BROWNOUT",
-        4: "RESTART_WATCHDOG",
-        6: "RESTART_SOFTWARE",
-        7: "RESTART_MCLR",
-        14: "RESTART_ILLEGAL_OP",
-        15: "RESTART_TRAP_CONFLICT",
-    }
-    return switcher.get(reebootReason_num)
-
-def decodeConvert1(element,elementType):
-
-    return float(element)/100
-
-def decodeConvert2(element,elementType):
-    return float(element)/10
-
-def decodeTime(element, elementType):
-    return str(decodeNum(element[0:2], 'B')) + ':' + str(decodeNum(element[2:4], 'B')) \
-           + ':' + str(decodeNum(element[4:6], 'B'))
-
-def decodeNone(element, elementType):
-    return element
-
-# What are those missions called?
+    def decodeNum(self, element, elementType):
+        ident = '<' + elementType  # changed to little endian '<' from big endian '>' (RR, 04/03/2019)
+        return struct.unpack(ident, element.decode('hex'))[0]
 
 
-def decodeBeacon(packet, type_):
-    # Switch-Case statement for beacon decoders
-    # self.add_to_debug('Beacon type', str(type_))
-    print("Type: {}".format(type_))
-    # Beacons types are 1 - 7 inc.
-    # They are sent as 60 - 66 inc.
-    type_ -=0
-    if type_ < 0 or type_ > 3:
-        print("Invalid Beacon Type!")
-    else:
-        # if type_ <=4: packet = packet[12:] # Hack to skip the extra 12 characters that the lower PPM adds to it's beacon packets (Removed by RR - Fixed on Satellite End 04/05/2019)
-        print("Beacon {} identified.".format(type_))
-        BeaconStructure = BeaconStructures[type_ ]
-        len_BeaconStructure = len(BeaconStructure)
+    def decodeNumBig(self, element, elementType):
+        ident = '>' + elementType  # allows decoding of big endian data
+        return struct.unpack(ident, element.decode('hex'))[0]
 
-        expectedPacketLength = 0
-        packetLength = len(packet)
-        for i in range(len_BeaconStructure):
-            expectedPacketLength += getDecodeLength(BeaconStructure[i][1]) * 2
-        print('Packet Length to Decode: {}'.format(packetLength))
-        print('Expected packet Length: {}'.format(expectedPacketLength))
-        if expectedPacketLength != packetLength:
-            print('Packet Length not as expected.')
+    def decodeReboot(self, rebootReason_num, elementType):
+        switcher = {
+            0: "RESTART_POWER_UP",
+            1: "RESTART_BROWNOUT",
+            4: "RESTART_WATCHDOG",
+            6: "RESTART_SOFTWARE",
+            7: "RESTART_MCLR",
+            14: "RESTART_ILLEGAL_OP",
+            15: "RESTART_TRAP_CONFLICT",
+        }
+        return switcher.get(rebootReason_num)
 
-        DecodedElements = [[0 for i in range(2)] for j in range(len_BeaconStructure)]
-        p = 0
-        for i in range(len_BeaconStructure):  # Iterate through telemetry elements
-            DecodedElements[i][0] = BeaconStructure[i][0]
-            elementType = BeaconStructure[i][1]
-            val_len = getDecodeLength(elementType) * 2
-            DecodedElements[i][1] = decodeElement(packet[p:p + val_len], elementType)
-            elementType = BeaconStructure[i][2]
-            DecodedElements[i][1] = decodeElement(DecodedElements[i][1], elementType)
-            '''
-            try:
-                DecodedElements[i][1] = decodeElement(packet[p:p + val_len], elementType)
+    def getReebootReason(self, reebootReason_num):
+        switcher = {
+            0: "RESTART_POWER_UP",
+            1: "RESTART_BROWNOUT",
+            4: "RESTART_WATCHDOG",
+            6: "RESTART_SOFTWARE",
+            7: "RESTART_MCLR",
+            14: "RESTART_ILLEGAL_OP",
+            15: "RESTART_TRAP_CONFLICT",
+        }
+        return switcher.get(reebootReason_num)
+
+    def decodeConvert1(self, element,elementType):
+
+        return float(element)/100
+
+    def decodeConvert2(self, element,elementType):
+        return float(element)/10
+
+    def decodeTime(self, element, elementType):
+        return str(self.decodeNum(element[0:2], 'B')) + ':' + str(self.decodeNum(element[2:4], 'B')) \
+            + ':' + str(self.decodeNum(element[4:6], 'B'))
+
+    def decodeNone(self, element, elementType):
+        return element
+
+    # What are those missions called?
+
+    def decodeBeacon(self, packet, type_):
+        # Switch-Case statement for beacon decoders
+        # self.add_to_debug('Beacon type', str(type_))
+        print("Type: {}".format(type_))
+        # Beacons types are 1 - 7 inc.
+        # They are sent as 60 - 66 inc.
+        type_ -=0
+        if type_ < 0 or type_ > 3:
+            print("Invalid Beacon Type!")
+        else:
+            # if type_ <=4: packet = packet[12:] # Hack to skip the extra 12 characters that the lower PPM adds to it's beacon packets (Removed by RR - Fixed on Satellite End 04/05/2019)
+            print("Beacon {} identified.".format(type_))
+            BeaconStructure = BeaconStructures[type_ ]
+            len_BeaconStructure = len(BeaconStructure)
+
+            expectedPacketLength = 0
+            packetLength = len(packet)
+            for i in range(len_BeaconStructure):
+                expectedPacketLength += self.getDecodeLength(BeaconStructure[i][1]) * 2
+            print('Packet Length to Decode: {}'.format(packetLength))
+            print('Expected packet Length: {}'.format(expectedPacketLength))
+            if expectedPacketLength != packetLength:
+                print('Packet Length not as expected.')
+
+            DecodedElements = [[0 for i in range(2)] for j in range(len_BeaconStructure)]
+            p = 0
+            for i in range(len_BeaconStructure):  # Iterate through telemetry elements
+                DecodedElements[i][0] = BeaconStructure[i][0]
+                elementType = BeaconStructure[i][1]
+                val_len = self.getDecodeLength(elementType) * 2
+                DecodedElements[i][1] = self.decodeElement(packet[p:p + val_len], elementType)
                 elementType = BeaconStructure[i][2]
-                DecodedElements[i][1] = decodeElement(DecodedElements[i][1], elementType)
-            except:
-                print("Error decoding element {} of beacon {}.".format(i, type_))
-                DecodedElements[i][1] = "Error!"
-            '''
-            p += val_len
-    return DecodedElements
+                DecodedElements[i][1] = self.decodeElement(DecodedElements[i][1], elementType)
+                '''
+                try:
+                    DecodedElements[i][1] = decodeElement(packet[p:p + val_len], elementType)
+                    elementType = BeaconStructure[i][2]
+                    DecodedElements[i][1] = decodeElement(DecodedElements[i][1], elementType)
+                except:
+                    print("Error decoding element {} of beacon {}.".format(i, type_))
+                    DecodedElements[i][1] = "Error!"
+                '''
+                p += val_len
+        return DecodedElements
 
 
-def getPrintableBeacon(DecodedElements):
-    printable = ''
-    type_ = DecodedElements[1]
-    max_len = 0
-    for i in range(len(DecodedElements)):
-        max_len = max(max_len, len(DecodedElements[i][0]))
-    for i in range(len(DecodedElements)):
-        spaces = ' ' + '.' * (max_len - len(DecodedElements[i][0]) + 2) + ' '
-        printable += '{}:{}{}\n'.format(
-            str(DecodedElements[i][0]),
-            spaces,
-            str(DecodedElements[i][1]))
-    return printable
+    def getPrintableBeacon(self, DecodedElements):
+        printable = ''
+        type_ = DecodedElements[1]
+        max_len = 0
+        for i in range(len(DecodedElements)):
+            max_len = max(max_len, len(DecodedElements[i][0]))
+        for i in range(len(DecodedElements)):
+            spaces = ' ' + '.' * (max_len - len(DecodedElements[i][0]) + 2) + ' '
+            printable += '{}:{}{}\n'.format(
+                str(DecodedElements[i][0]),
+                spaces,
+                str(DecodedElements[i][1]))
+        return printable
 
 
-def getDisplayableBeacon(DecodedElements):
-    displayable = ''
-    type_ = DecodedElements[1]
-    max_len = 0
-    for i in range(len(DecodedElements)):
-        spaces = '\n    '
-        displayable += '{}:{}{}\n'.format(
-            str(DecodedElements[i][0]),
-            spaces,
-            str(DecodedElements[i][1]))
-    return displayable
+    def getDisplayableBeacon(self, DecodedElements):
+        displayable = ''
+        type_ = DecodedElements[1]
+        max_len = 0
+        for i in range(len(DecodedElements)):
+            spaces = '\n    '
+            displayable += '{}:{}{}\n'.format(
+                str(DecodedElements[i][0]),
+                spaces,
+                str(DecodedElements[i][1]))
+        return displayable
 
-f = open("B0EncodedSample.txt", "r")
-EncodedElements=f.readline()
-
-decoded = decodeBeacon(EncodedElements,0)
-print(getPrintableBeacon(decoded))
+if __name__ == "__main__":
+    decoder = Decoder()
+    f = open("B0EncodedSample.txt", "r")
+    EncodedElements=f.readline()
+    decoded = decoder.decodeBeacon(EncodedElements,0)
+    print(decoded.getPrintableBeacon(decoded))
