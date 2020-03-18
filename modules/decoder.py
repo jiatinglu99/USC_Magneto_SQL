@@ -5,7 +5,6 @@ import sys
 import struct
 import binascii
 import os.path
-import scipy
 import time
 from datetime import datetime
 import os, errno
