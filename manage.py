@@ -1,7 +1,7 @@
 import os 
 import sys
-from modules.Decoder import *
-from modules.Parser import *
+from modules.decoder import *
+from modules.parser import *
 
 ######## Choose one of the following 
 # dir = '/home/usc-magneto/Maildir' # dir on Magneto VM
