@@ -11,6 +11,7 @@ class Parser:
         self.dir = dir_from
         self.dir_dest = dir_dest
         self.mbox = mailbox.Maildir(self.dir, factory=None)
+        self.delete = False
     
     def parse_all(self):
         # directory to store emails without HEX keys
@@ -57,7 +58,7 @@ class Parser:
             if not os.path.exists(self.dir_date_folder):
                 os.makedirs(self.dir_date_folder)
             shutil.copyfile(dir_source, dir_destination)
-            self.mbox.remove(key)
+            if self.delete: self.mbox.remove(key)
 
         for key in to_remove_others:
             dir_source = os.path.join(self.dir, 'new', key)
@@ -66,7 +67,7 @@ class Parser:
             if not os.path.exists(self.dir_others_folder):
                 os.makedirs(self.dir_others_folder)
             shutil.copyfile(dir_source, dir_destination)
-            self.mbox.remove(key)
+            if self.delete: self.mbox.remove(key)
         
         return hex_key_collection
     
