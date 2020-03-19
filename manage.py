@@ -19,7 +19,7 @@ class Manager:
         self.dec = Decoder()
 
     def run(self):
-        keys = self.parser.parse_all()
+        self.keys = self.parser.parse_all()
 
 
     def process_data(self, hex_key):

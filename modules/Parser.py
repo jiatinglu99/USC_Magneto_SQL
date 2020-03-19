@@ -57,15 +57,16 @@ class Parser:
             if not os.path.exists(self.dir_date_folder):
                 os.makedirs(self.dir_date_folder)
             shutil.copyfile(dir_source, dir_destination)
+            self.mbox.remove(key)
 
         for key in to_remove_others:
             dir_source = os.path.join(self.dir, 'new', key)
             dir_destination = os.path.join(self.dir_others_folder, key)
             #print(self.dir_others_folder)
-
             if not os.path.exists(self.dir_others_folder):
                 os.makedirs(self.dir_others_folder)
-            shutil.copyfile(dir_source, self.dir_date_folder)
+            shutil.copyfile(dir_source, dir_destination)
+            self.mbox.remove(key)
         
         return hex_key_collection
     
