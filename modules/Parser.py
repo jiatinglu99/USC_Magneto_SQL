@@ -29,6 +29,7 @@ class Parser:
             # find HEX
             body = self.get_body(msg)
             lines = body.splitlines()
+            #print(msg['Date'])
 
             is_DATA = False
             for line in lines:
@@ -41,7 +42,12 @@ class Parser:
                 to_remove_data.append(key)
                 # look for the actual HEX key
                 hex_key = self.extract_HEX(line)
-                hex_key_collection.append(hex_key)
+                temp_dict = {
+                    'Key':  hex_key,
+                    'From': msg['From'],
+                    'Date': msg['Date']
+                    }
+                hex_key_collection.append(temp_dict)
             else:
                 to_remove_others.append(key)
                     

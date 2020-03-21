@@ -1,4 +1,5 @@
 import numpy as np
+import codecs
 # from gnuradio import gr
 # import pmt
 import sys
@@ -266,16 +267,16 @@ class Decoder:
         return decoder(element, elementType)
 
     def decodeChar(self, element, elementType):
-        return element.decode("hex")
+        return codecs.decode(element, 'hex')#element.decode("hex")
 
     def decodeNum(self, element, elementType):
         ident = '<' + elementType  # changed to little endian '<' from big endian '>' (RR, 04/03/2019)
-        return struct.unpack(ident, element.decode('hex'))[0]
+        return struct.unpack(ident, codecs.decode(element, 'hex'))[0]
 
 
     def decodeNumBig(self, element, elementType):
         ident = '>' + elementType  # allows decoding of big endian data
-        return struct.unpack(ident, element.decode('hex'))[0]
+        return struct.unpack(ident, codecs.decode(element, 'hex'))[0]
 
     def decodeReboot(self, rebootReason_num, elementType):
         switcher = {
