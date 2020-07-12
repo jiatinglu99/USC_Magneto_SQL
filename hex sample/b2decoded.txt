@@ -1,0 +1,55 @@
+M
+A
+G
+N
+E
+T
+O
+80 (length)
+2 (Beacon type)
+01d2 (PageAddr, unimportant)
+37 (days)
+3 (hrs)
+31 (minutes)
+270.0 (Kelvin)
+275.0 (Kelvin)
+250.0 (Kelvin)
+4.89 (Volts)
+3.25 (Volts)
+64.0 (mA)
+65.0 (mA)
+2850 (Kelvin)
+1.50 (Volts)
+3.65 (Volts)
+1.42 (Volts)
+
+2.30 (Volts)
+4.37 (Volts)
+37.8 (mA)
+68.0 (mA)
+40.1 (mA)
+48.5 (mA)
+25.5 (mA)
+37.0 (mA)
+81.4 (mA)
+18.0 (mA)
+1 (boolean)
+
+273.1 (Kelvin)
+290.0 (Kelvin)
+285.5 (Kelvin)
+260.6 (Kelvin)
+265.8 (Kelvin)
+270.5 (Kelvin)
+280.3 (Kelvin)
+
+83 (reboot counter)
+
+273.1 (Kelvin)
+290.0 (Kelvin)
+285.5 (Kelvin)
+260.6 (Kelvin)
+265.8 (Kelvin)
+270.5 (Kelvin)
+280.3 (Kelvin)
+5fe8 (crc)

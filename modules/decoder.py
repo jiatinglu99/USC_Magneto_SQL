@@ -321,7 +321,7 @@ class Decoder:
     def decodeBeacon(self, packet, type_):
         # Switch-Case statement for beacon decoders
         # self.add_to_debug('Beacon type', str(type_))
-        print("Type: {}".format(type_))
+        #print("Type: {}".format(type_))
         # Beacons types are 1 - 7 inc.
         # They are sent as 60 - 66 inc.
         type_ -=0
@@ -329,7 +329,7 @@ class Decoder:
             print("Invalid Beacon Type!")
         else:
             # if type_ <=4: packet = packet[12:] # Hack to skip the extra 12 characters that the lower PPM adds to it's beacon packets (Removed by RR - Fixed on Satellite End 04/05/2019)
-            print("Beacon {} identified.".format(type_))
+            #print("Beacon {} identified.".format(type_))
             BeaconStructure = BeaconStructures[type_ ]
             len_BeaconStructure = len(BeaconStructure)
 
@@ -337,8 +337,8 @@ class Decoder:
             packetLength = len(packet)
             for i in range(len_BeaconStructure):
                 expectedPacketLength += self.getDecodeLength(BeaconStructure[i][1]) * 2
-            print('Packet Length to Decode: {}'.format(packetLength))
-            print('Expected packet Length: {}'.format(expectedPacketLength))
+            #print('Packet Length to Decode: {}'.format(packetLength))
+            #print('Expected packet Length: {}'.format(expectedPacketLength))
             if expectedPacketLength != packetLength:
                 print('Packet Length not as expected.')
 

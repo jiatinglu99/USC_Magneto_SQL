@@ -11,6 +11,9 @@ class Parser:
         self.dir = dir_from
         self.dir_dest = dir_dest
         self.mbox = mailbox.Maildir(self.dir, factory=None)
+        
+        #!!! if delete == true, the program will clear the inbox after parsing as intended
+        #!!! false delete is only for testing purpose
         self.delete = False
     
     def parse_all(self):
