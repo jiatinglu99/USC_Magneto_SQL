@@ -1,0 +1,168 @@
+Return-Path: <sunalber@usc.edu>
+X-Original-To: usc-magneto@magneto.isi.edu
+Delivered-To: usc-magneto@magneto.isi.edu
+Received: from mail-d.ads.isi.edu (unknown [192.168.110.199])
+	by magneto.isi.edu (Postfix) with ESMTP id EAF405AC2C
+	for <usc-magneto@magneto.isi.edu>; Wed, 19 Feb 2020 21:42:13 -0800 (PST)
+IronPort-PHdr: =?us-ascii?q?9a23=3A8ZytORMJejIuJY+dOX4l6mtUPXoX/o7sNwtQ0KIM?=
+ =?us-ascii?q?zox0LPX8rarrMEGX3/hxlliBBdydt6sYzbqP+PC9EUU7or+/81k6OKRWUBEEjc?=
+ =?us-ascii?q?hE1ycBO+WiTXPBEfjxciYhF95DXlI2t1uyMExSBdqsLwaK+i764jEdAAjwOhRo?=
+ =?us-ascii?q?LerpBIHSk9631+ev8JHPfglEnjWwba59IRmsrgjdq8YajIhiJ60s1hbHv3xEdv?=
+ =?us-ascii?q?hZym9vOV+dhQv36N2q/J5k/SRQuvYh+NBFXK7nYak2TqFWASo/PWwt68LlqRfM?=
+ =?us-ascii?q?TQ2U5nsBSWoWiQZHAxLE7B7hQJj8tDbxu/dn1ymbOc32Sq00WSin4qx2RhLklD?=
+ =?us-ascii?q?sLOjgk+2zRl8d+jr9UoAi5qhNww4DaboKbOudgcKzBZt4VX3ZNU9xLWiBdHo+x?=
+ =?us-ascii?q?bY0CBPcBM+ZCqIn9okMDoAe6BQa3Guzv0CNIjWLr060n1eQqDAbL3Bc9H9IIqn?=
+ =?us-ascii?q?vUqM76O7kIUe2u0anI1inMY+lI1jjg9YjFaxYsquyPU7Joacfd11UjGgffgliT?=
+ =?us-ascii?q?qYHpJS6Z2+URv2SB8uZtVv6jhmg6oA9ruDev3N0jiozRi4IV1F/E8SJ5zZ4wJd?=
+ =?us-ascii?q?KiSU57ZceoEIJMty2HLod2TN4uTmJ0tCogxb0Gvpm7fCcOyJs53RLQd/uHc42Q?=
+ =?us-ascii?q?7hLiUuaePyt4iWp7dL6jgxu+60utx+3mWsWp0VtGsjBJnsTPu3wRzxDT79KISv?=
+ =?us-ascii?q?p5/kevwzaP0AXT5/lfIUApk6rUMZohzaUumZoJqknDAzT2l1nsgKCIa0ok5/Ck?=
+ =?us-ascii?q?6/77bbX+up+cK4h0hxnjMqQ1hsOzGOE4PRIBX2id5+u8yLrj8Fb8QLpQgf02lL?=
+ =?us-ascii?q?fWsIzdJcgBp665GA5V3pw95BmiEjf1mOgfyGQcJxdAcR2BgpTuE1DVIbb1Aers?=
+ =?us-ascii?q?rU6rlWJCw/rLJKGpOYjLZizYjbHoebxw8WZB0wF1wNxCscEHQoodKe7+Dxei/O?=
+ =?us-ascii?q?fTCQU0ZlS5?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A0EHAwBVG05ehrSgVdFmDg8BAQEJAREFB?=
+ =?us-ascii?q?QGBe4ElgkQzKoQUgRyNa5x2A1QBCAEBAQEBAQEBAQgTHAQBAYZHJDgTAhABAQU?=
+ =?us-ascii?q?BAQECAQUEAQECEAEBAQgLCwgphT4MgjsigWkse2cRHQEBOB4HNwIkEgEFAVeDB?=
+ =?us-ascii?q?IJ8oQiBBD2LKIEMJoJ/AQEFhiEBCYFCCRKBJowkGoIAgUeEH4MEg1OCXpggl3W?=
+ =?us-ascii?q?CRYJQlBEcmy2qTg8jgUaBezMaCB0TGlIGgjVQGA2OHRgCg1mKGF4jMAKOYgEB?=
+X-IPAS-Result: =?us-ascii?q?A0EHAwBVG05ehrSgVdFmDg8BAQEJAREFBQGBe4ElgkQzKoQ?=
+ =?us-ascii?q?UgRyNa5x2A1QBCAEBAQEBAQEBAQgTHAQBAYZHJDgTAhABAQUBAQECAQUEAQECE?=
+ =?us-ascii?q?AEBAQgLCwgphT4MgjsigWkse2cRHQEBOB4HNwIkEgEFAVeDBIJ8oQiBBD2LKIE?=
+ =?us-ascii?q?MJoJ/AQEFhiEBCYFCCRKBJowkGoIAgUeEH4MEg1OCXpggl3WCRYJQlBEcmy2qT?=
+ =?us-ascii?q?g8jgUaBezMaCB0TGlIGgjVQGA2OHRgCg1mKGF4jMAKOYgEB?=
+X-IronPort-AV: E=Sophos;i="5.70,462,1574150400"; 
+   d="scan'208,217";a="21163063"
+Received: from mail-qt1-f180.google.com ([209.85.160.180])
+  by mail-d.ads.isi.edu with ESMTP/TLS/AES128-GCM-SHA256; 19 Feb 2020 21:42:14 -0800
+Received: by mail-qt1-f180.google.com with SMTP id v25so2073689qto.7
+        for <usc-magneto@isi.edu>; Wed, 19 Feb 2020 21:42:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=usc-edu.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=Er4V6Hz+96MB9uPczsNdj7IO1/I3WKahVXgCDov11d4=;
+        b=NTsvKsKO5hu1A34bxQX5vyLglCtNY86qZPRpsYgfxikNcNU3gf5VGper8Hh3aUUlL/
+         F1oKRUfnIrniChfGmCt6DJBGEaHlK6IQ5JaFAvKSLUuGqeRSXt/jJJNuUy9ed1Kxizbl
+         IDBBOqiwQqDIAMw5eM9/sNSDyXMtBEW2g+A1oPDe1HjxwAg+/rVnWJiTymGvU1dmrpOS
+         lNXKNZAiIgNGSc4OPREaIlePOADZtbDNsnji7rd2rCIZ5VUr3srXY00ETdktfnVM5upQ
+         HoM00qHxrsmuOKbs/6TBECE42Vph0k6OsfSOQaBKFX2Xoq6AaG0/g/Ld3AslhVXJ4eYY
+         1EPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=Er4V6Hz+96MB9uPczsNdj7IO1/I3WKahVXgCDov11d4=;
+        b=AZMiPaW8ShunSNLVoe1+sfYQIqVFQ/b3osisN9d/6MqkYJMGBdaSGqZpcZLpnwUiaC
+         b3641ZOf8D1V4gHhNrOkZipQHPfRL1qs9y15a/qPXUnbEYJSqC0ugfLkzgIm08YsfUCK
+         NHjBfZIeTHFLpq42dmgUm99G8rUEk2kO9kzrR7ukfri+9E02PwIsYH3dKznFMEPVwe7d
+         p8tECdaf4nNJu9LbUoHLxpR6bYtU6OIGJ7VNelOXiNpEGdi2VwKJS9xtS/CrXy3P6tMi
+         T/rRsuESvSrYtTJFqKnErLgVYS9rqe7pdbHLxrRLgttiJjDerYC86rw8SBVC28IGkfF7
+         wqtg==
+X-Gm-Message-State: APjAAAUVaoI2mOjEWzVVnRW0/qCW49mJBRcz3rE/xgdt7j3FDR9RKgBj
+	PzgPQNcdHzOj/zZtX0yjv7F1B/e+vy0HG67wXjKo9frPD6/8RA==
+X-Google-Smtp-Source: APXvYqw2Zup+RGNwza6WxvBNSjzlUVYUwW+gW3EWf/MBLXdO35+Ir7GPMzDzaUAk5QzyXVuOD8TST+D0K/Y2z94CyeA=
+X-Received: by 2002:ac8:4c90:: with SMTP id j16mr24986151qtv.298.1582177332054;
+ Wed, 19 Feb 2020 21:42:12 -0800 (PST)
+MIME-Version: 1.0
+From: Albert Sun <sunalber@usc.edu>
+Date: Wed, 19 Feb 2020 21:42:01 -0800
+Message-ID: <CAB7q84SBBZ0hwoXWg1LJKtX5ENj+xQ3z88=hM-=7PEH1_8M--w@mail.gmail.com>
+Subject: Sample Feb 19th
+To: usc-magneto@isi.edu
+Content-Type: multipart/alternative; boundary="000000000000d9615d059efb5da1"
+
+--000000000000d9615d059efb5da1
+Content-Type: text/plain; charset="UTF-8"
+
+HEX:4d41474e45544f00640001d225031de9026cee8a1b7cff2002bc1bb4001b000101e9026cee8a1bda0202efc91bb4001b000101e9026cee8a1b7cff2002bc1bb4001b000101e9026cee8a1bda0202efc91bb4001b0001018c0abe0ac409e901450180028a02220b96006d018e001D83
+
+
+Title: ...................... MAGNETO
+Length: ..................... 25600
+Packet type: ................ 0
+Page_Address: ............... 01d2
+Time: ....................... 37:3:29
+Gyro 1 Temp: ................ 74.5
+Gyro 2 Temp: ................ 6103.6
+Gyro 3 Temp: ................ 705.0
+V DBB Main Cell: ............ 654.04
+V DBB Daughterboard: ........ 5.44
+I DBB Main Cell: ............ 710.0
+I DBB Daughterboard: ........ 18.0
+Sun Sensor Temp: ............ 2.7
+Solar Panel 1 V: ............ 2.57
+Solar Panel 2 V: ............ 7.45
+Solar Panel 3 V: ............ 610.36
+Solar Panel 4 V: ............ 70.5
+Solar Panel 5 V: ............ 7.3
+Solar Panel 1 I: ............ 6118.6
+Solar Panel 2 I: ............ 711.3
+Solar Panel 3 I: ............ 18.0
+Solar Panel 4 I: ............ 2.7
+Solar Panel 5 I: ............ 25.7
+I Pycube 3.3V: .............. 74.5
+I Pycube 5V: ................ 6103.6
+Battery Bus: ................ 705.0
+Battery Current Direction: .. 65404
+Solar Panel T Panel 1: ...... 54.4
+Solar Panel T Panel 2: ...... 710.0
+Solar Panel T Panel 3: ...... 18.0
+Solar Panel T Panel 4: ...... 2.7
+Solar Panel T Panel 5: ...... 25.7
+T DBB Main Cell: ............ 74.5
+T DBB Daughterboard: ........ 6103.6
+Reboot Counter: ............. 7050
+Solar Panel 1 I H8: ......... 73.0
+Solar Panel 2 I H8: ......... 6118.6
+Solar Panel 3 I H8: ......... 711.3
+Solar Panel 4 I H8: ......... 18.0
+Solar Panel 5 I H8: ......... 2.7
+T DBB Main Cell H8: ......... 25.7
+T DBB Daughterboard H8: ..... 270.0
+
+Check Sum: .................. be0a
+
+--000000000000d9615d059efb5da1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><p style=3D"margin:0px;f=
+ont-stretch:normal;font-size:12px;line-height:normal;font-family:&quot;Helv=
+etica Neue&quot;;color:rgb(0,0,0)"><span style=3D"-webkit-font-kerning: non=
+e;">HEX:4d41474e45544f00640001d225031de9026cee8a1b7cff2002bc1bb4001b000101e=
+9026cee8a1bda0202efc91bb4001b000101e9026cee8a1b7cff2002bc1bb4001b000101e902=
+6cee8a1bda0202efc91bb4001b0001018c0abe0ac409e901450180028a02220b96006d018e0=
+01D83</span></p><p style=3D"margin:0px;font-stretch:normal;font-size:12px;l=
+ine-height:normal;font-family:&quot;Helvetica Neue&quot;;color:rgb(0,0,0)">=
+<span style=3D"-webkit-font-kerning: none;"><br></span></p><div>Title: ....=
+.................. MAGNETO</div><div>Length: ..................... 25600</d=
+iv><div>Packet type: ................ 0</div><div>Page_Address: ...........=
+.... 01d2</div><div>Time: ....................... 37:3:29</div><div>Gyro 1 =
+Temp: ................ 74.5</div><div>Gyro 2 Temp: ................ 6103.6<=
+/div><div>Gyro 3 Temp: ................ 705.0</div><div>V DBB Main Cell: ..=
+.......... 654.04</div><div>V DBB Daughterboard: ........ 5.44</div><div>I =
+DBB Main Cell: ............ 710.0</div><div>I DBB Daughterboard: ........ 1=
+8.0</div><div>Sun Sensor Temp: ............ 2.7</div><div>Solar Panel 1 V: =
+............ 2.57</div><div>Solar Panel 2 V: ............ 7.45</div><div>So=
+lar Panel 3 V: ............ 610.36</div><div>Solar Panel 4 V: ............ =
+70.5</div><div>Solar Panel 5 V: ............ 7.3</div><div>Solar Panel 1 I:=
+ ............ 6118.6</div><div>Solar Panel 2 I: ............ 711.3</div><di=
+v>Solar Panel 3 I: ............ 18.0</div><div>Solar Panel 4 I: ...........=
+. 2.7</div><div>Solar Panel 5 I: ............ 25.7</div><div>I Pycube 3.3V:=
+ .............. 74.5</div><div>I Pycube 5V: ................ 6103.6</div><d=
+iv>Battery Bus: ................ 705.0</div><div>Battery Current Direction:=
+ .. 65404</div><div>Solar Panel T Panel 1: ...... 54.4</div><div>Solar Pane=
+l T Panel 2: ...... 710.0</div><div>Solar Panel T Panel 3: ...... 18.0</div=
+><div>Solar Panel T Panel 4: ...... 2.7</div><div>Solar Panel T Panel 5: ..=
+.... 25.7</div><div>T DBB Main Cell: ............ 74.5</div><div>T DBB Daug=
+hterboard: ........ 6103.6</div><div>Reboot Counter: ............. 7050</di=
+v><div>Solar Panel 1 I H8: ......... 73.0</div><div>Solar Panel 2 I H8: ...=
+...... 6118.6</div><div>Solar Panel 3 I H8: ......... 711.3</div><div>Solar=
+ Panel 4 I H8: ......... 18.0</div><div>Solar Panel 5 I H8: ......... 2.7</=
+div><div>T DBB Main Cell H8: ......... 25.7</div><div>T DBB Daughterboard H=
+8: ..... 270.0</div><p style=3D"margin:0px;font-stretch:normal;font-size:12=
+px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;color:rgb(0,0,=
+0)"><span style=3D"-webkit-font-kerning: none;"></span></p><div>Check Sum: =
+.................. be0a</div></div></div></div>
+
+--000000000000d9615d059efb5da1--

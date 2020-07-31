@@ -1,0 +1,9 @@
+Return-Path: <amir@isi.edu>
+X-Original-To: usc-magneto@magneto.isi.edu
+Delivered-To: usc-magneto@magneto.isi.edu
+Received: from amir.isi.edu (unknown [10.255.250.222])
+	by magneto.isi.edu (Postfix) with SMTP id 9B44A185A52
+	for <usc-magneto@magneto.isi.edu>; Fri, 10 Jan 2020 18:03:38 -0800 (PST)
+subject: test
+
+test
