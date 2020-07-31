@@ -318,7 +318,7 @@ class Decoder:
 
     # What are those missions called?
 
-    def decodeBeacon(self, packet, type_):
+    def decodeBeacon(self, packet, type_ = 0):
         # Switch-Case statement for beacon decoders
         # self.add_to_debug('Beacon type', str(type_))
         #print("Type: {}".format(type_))
@@ -340,7 +340,11 @@ class Decoder:
             #print('Packet Length to Decode: {}'.format(packetLength))
             #print('Expected packet Length: {}'.format(expectedPacketLength))
             if expectedPacketLength != packetLength:
-                print('Packet Length not as expected.')
+                #print(expectedPacketLength)
+                #print(packetLength)
+                #print('Packet Length not as expected. Testing next beacon type')
+                # if the packet length doesn't match, keep trying new beacon type
+                return self.decodeBeacon(packet, type_+1) 
 
             DecodedElements = [[0 for i in range(2)] for j in range(len_BeaconStructure)]
             p = 0
@@ -361,6 +365,8 @@ class Decoder:
                     DecodedElements[i][1] = "Error!"
                 '''
                 p += val_len
+            if DecodedElements[2][1] != type_:
+                return self.decodeBeacon(packet, DecodedElements[2][1])
         return DecodedElements
 
 

@@ -1,60 +1,65 @@
 # This program turns decoded beacon packets into standardized data entry for SQL Server
 # -*- coding: utf-8 -*-
 
+MAG_FORMAT = 'DECIMAL(6,2)'
+TEMP_FORMAT = 'DECIMAL(6,2)'
+VOLTAGE_FORMAT = 'DECIMAL(4,2)'
+CURRENT_FORMAT = 'DECIMAL(6,2)'
+
 PrimaryEntry = [
     ['Time',            'TIME'],
-    ['SERCMag(x)',     ''],
-    ['SERCMag(y)',     ''],
-    ['SERCMag(z)',     ''],
-    ['OmegaMag1(x)',   ''],
-    ['OmegaMag1(y)',   ''],
-    ['OmegaMag1(z)',   ''],
-    ['Roll',            ''],
-    ['Pitch',           ''],
-    ['Yaw',             ''],
-    ['Source',          '']
+    ['SERCMag_x',      MAG_FORMAT],
+    ['SERCMag_y',      MAG_FORMAT],
+    ['SERCMag_z',      MAG_FORMAT],
+    ['OmegaMag1x',    MAG_FORMAT],
+    ['OmegaMag1y',    MAG_FORMAT],
+    ['OmegaMag1z',    MAG_FORMAT],
+    ['Roll',            'SMALLINT'],
+    ['Pitch',           'SMALLINT'],
+    ['Yaw',             'SMALLINT'],
+    ['Source',          'CHAR(50)']
 ]
 
 SecondaryEntry = [
     ['Time',                'TIME'],
-    ['Gyro_1_Temp',         ''],
-    ['Gyro_2_Temp',         ''],
-    ['Gyro_3_Temp',         ''],
-    ['V_DBB_Main_Cell',     ''],
-    ['V_DBB_Daughterboard', ''],
-    ['I_DBB_Main_Cell',     ''],
-    ['I_DBB_Daughterboard', ''],
-    ['Sun_Sensor_Temp',     ''],
-    ['Solar_Panel_1_V',     ''],
-    ['Solar_Panel_2_V',     ''],
-    ['Solar_Panel_3_V',     ''],
-    ['Solar_Panel_4_V',     ''],
-    ['Solar_Panel_5_V',     ''],
-    ['Solar_Panel_1_I',     ''],
-    ['Solar_Panel_2_I',     ''],
-    ['Solar_Panel_3_I',     ''],
-    ['Solar_Panel_4_I',     ''],
-    ['Solar_Panel_5_I',     ''],
-    ['I_Pycube_3.3V',       ''],
-    ['I_Pycube_5V',         ''],
-    ['Battery_Bus',         ''],
-    ['Battery_Current_Direction',''],
-    ['Solar_Panel_T_Panel_1',''],
-    ['Solar_Panel_T_Panel_2',''],
-    ['Solar_Panel_T_Panel_3',''],
-    ['Solar_Panel_T_Panel_4',''],
-    ['Solar_Panel_T_Panel_5',''],
-    ['T_DBB_Main_Cell',     ''],
-    ['T_DBB_Daughterboard', ''],
-    ['Reboot_Counter',      ''],
-    ['Solar_Panel_1_I_H8',  ''],
-    ['Solar_Panel_2_I_H8',  ''],
-    ['Solar_Panel_3_I_H8',  ''],
-    ['Solar_Panel_4_I_H8',  ''],
-    ['Solar_Panel_5_I_H8',  ''],
-    ['T_DBB_Main_Cell_H8',  ''],
-    ['T_DBB_Daughterboard_H8',''],
-    ['Source',              '']
+    ['Gyro_1_Temp',         TEMP_FORMAT],
+    ['Gyro_2_Temp',         TEMP_FORMAT],
+    ['Gyro_3_Temp',         TEMP_FORMAT],
+    ['V_DBB_Main_Cell',     VOLTAGE_FORMAT],
+    ['V_DBB_Daughterboard', VOLTAGE_FORMAT],
+    ['I_DBB_Main_Cell',     CURRENT_FORMAT],
+    ['I_DBB_Daughterboard', CURRENT_FORMAT],
+    ['Sun_Sensor_Temp',     TEMP_FORMAT],
+    ['Solar_Panel_1_V',     VOLTAGE_FORMAT],
+    ['Solar_Panel_2_V',     VOLTAGE_FORMAT],
+    ['Solar_Panel_3_V',     VOLTAGE_FORMAT],
+    ['Solar_Panel_4_V',     VOLTAGE_FORMAT],
+    ['Solar_Panel_5_V',     VOLTAGE_FORMAT],
+    ['Solar_Panel_1_I',     CURRENT_FORMAT],
+    ['Solar_Panel_2_I',     CURRENT_FORMAT],
+    ['Solar_Panel_5_I',     CURRENT_FORMAT],
+    ['Solar_Panel_3_I',     CURRENT_FORMAT],
+    ['Solar_Panel_4_I',     CURRENT_FORMAT],
+    ['I_Pycube_3_3V',       CURRENT_FORMAT],
+    ['I_Pycube_5V',         CURRENT_FORMAT],
+    ['Battery_Bus',         CURRENT_FORMAT],
+    ['Battery_Current_Direction','CHAR(1)'],
+    ['Solar_Panel_T_Panel_1',TEMP_FORMAT],
+    ['Solar_Panel_T_Panel_2',TEMP_FORMAT],
+    ['Solar_Panel_T_Panel_3',TEMP_FORMAT],
+    ['Solar_Panel_T_Panel_4',TEMP_FORMAT],
+    ['Solar_Panel_T_Panel_5',TEMP_FORMAT],
+    ['T_DBB_Main_Cell',     TEMP_FORMAT],
+    ['T_DBB_Daughterboard', TEMP_FORMAT],
+    ['Reboot_Counter',      'INT'],
+    ['Solar_Panel_1_I_H8',  CURRENT_FORMAT],
+    ['Solar_Panel_2_I_H8',  CURRENT_FORMAT],
+    ['Solar_Panel_3_I_H8',  CURRENT_FORMAT],
+    ['Solar_Panel_4_I_H8',  CURRENT_FORMAT],
+    ['Solar_Panel_5_I_H8',  CURRENT_FORMAT],
+    ['T_DBB_Main_Cell_H8',  TEMP_FORMAT],
+    ['T_DBB_Daughterboard_H8',TEMP_FORMAT],
+    ['Source',              'CHAR(50)']
 ]
 
 primary_entry_rule = [
@@ -101,7 +106,7 @@ def get_time(curr, prior):
             if day < 0: # way out of range
                 day, hour, minute = 0, 0, 0
                 break
-    return str(day)+':'+str(hour)+':'+str(minute)
+    return str(day).zfill(2)+':'+str(hour).zfill(2)+':'+str(minute).zfill(2)
         
     
 
